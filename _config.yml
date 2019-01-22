@@ -1,18 +1,27 @@
 # Site settings
-title: Jekyll-Uno
-description: 'Jekyll-Uno - a minimal, responsive theme for Jekyll'
-url: 'http://joshgerdes.com/jekyll-uno'
-baseurl: '/jekyll-uno'
+title: 'Ian Tabolt'
+description: >
+  <p>
+  I'm Ian, a software engieer at Foursquare where I work on
+  developer systems - ie software tools to make other developers'
+  lives easier.
+  </p>
+  <p>
+  I am a Scala enthusiast, cyclist, Yankees & Ravens fan, husband, 
+  and 2x doggie dad.
+  </p>
+url: 'tabo.lt'
+baseurl: ''
+disqus_shortname: 'itabolt'
 # google_analytics: 'UA-XXXXXX-X'
-# disqus_shortname: 'your-disqus-name'
 
 author:
-  name: 'Josh Gerdes'
-  email: josh@joshgerdes.com
-  twitter_username: joshgerdes
-  facebook_username: joshgerdes
-  github_username:  joshgerdes
-  linkedin_username:  joshgerdes
+  name: 'Ian Tabolt'
+  email: ian@tabo.lt
+  twitter_username: squibolt
+  facebook_username: ian.tabolt
+  github_username: iantabolt
+  linkedin_username: iantabolt
 
 defaults:
   -
@@ -40,4 +49,4 @@ kramdown:
   hard_wrap: false
 
 plugins: ['jekyll-paginate']
-exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png', 'vendor']
