@@ -1,9 +1,8 @@
 ---
 title:  "Phantom Type Safe Map"
-date:   2018-01-22 14:39:47
+date:   2019-01-22 14:39:47
 categories: [scala]
 tags: [scala]
-comments: true
 ---
 
 ## The Type-Safe Map
