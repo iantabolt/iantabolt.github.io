@@ -47,6 +47,16 @@
               </li>
             {% endif %}
 
+            {% if site.author.foursquare_username %}
+              <!-- Facebook -->
+              <li class="navigation__item">
+                <a href="https://foursquare.com/{{ site.author.foursquare_username }}" title="{{ site.author.foursquare_username }} on Foursquare" target="_blank">
+                  <i class="icon icon-social-foursquare"></i>
+                  <span class="label">Foursquare</span>
+                </a>
+              </li>
+            {% endif %}
+
             {% if site.author.linkedin_username %}
               <!-- LinkedIn -->
               <li class="navigation__item">
