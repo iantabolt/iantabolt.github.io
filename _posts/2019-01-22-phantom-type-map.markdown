@@ -221,6 +221,10 @@ appends `with key.Aware` to the phantom type parameter.
 Then the `apply` method only compiles if there is an implicit `T <:< key.Aware`, which 
 asserts that there must be proof that `T` extends `key.Aware` (ie the value exists).
 
+You can see the working code and tests for this post [on GitHub here] [GitHub Repo].
+ 
+
 
   [TypesafeMap]: https://github.com/stanfordnlp/CoreNLP/blob/master/src/edu/stanford/nlp/util/TypesafeMap.java
   [CoreAnnotations]: https://github.com/stanfordnlp/CoreNLP/blob/master/src/edu/stanford/nlp/ling/CoreAnnotations.java
+  [GitHub Repo]: https://github.com/iantabolt/phantom-type-safe-map
