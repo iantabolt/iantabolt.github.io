@@ -13,14 +13,14 @@ map that can hold arbitrary data while still providing compile-time safety.
 I've ran into a "type-safe `Map`" pattern in Java that looks something like this:
 
 ```java
-interface Key<T> {}
+abstract class Key<V> {}
 
 public class TypesafeMap {
   private Map<Class<?>, Object> underlying =
     new HashMap<Class<?>, Object>();
 
-  public <V> void set(Class<? extends Key<V>> key, V thing) {
-    underlying.put(key, thing);
+  public <V> void set(Class<? extends Key<V>> key, V value) {
+    underlying.put(key, value);
   }
 
   public <V> V get(Class<? extends Key<V>> key) {
@@ -35,14 +35,14 @@ so we can do "type-safe" `get` and `set` operations while hiding the underlying 
 An immutable version in Scala might look something like this:
 
 ```scala
-trait Key[T]
+abstract class Key[V] {}
 
-case class TypesafeMap private (underlying: Map[Key[_], Any] = Map()) {
-  def get[T](key: Key[T]): Option[T] = {
-    underlying.get(key).map(_.asInstanceOf[T])
+case class TypesafeMap(underlying: Map[Key[_], Any] = Map()) {
+  def get[V](key: Key[V]): Option[V] = {
+    underlying.get(key).map(_.asInstanceOf[V])
   }
 
-  def updated[T](key: Key[T], value: T): TypesafeMap = {
+  def updated[V](key: Key[V], value: V): TypesafeMap = {
     copy(underlying + (key -> value))
   }
 }
@@ -142,7 +142,7 @@ val tagged = posTag(text)
 But really we want something like
 
 ```scala
-def tokenize[Text <: TypesafeMap](text: T): T with HasTokens = {
+def tokenize[T <: TypesafeMap](text: T): T with HasTokens = {
   text.updated(Tokens, text.split(" ").toList)
 }
 def posTag[T <: TypesafeMap with HasTokens](text: T): T with HasPosTag = {
@@ -192,6 +192,7 @@ abstract class Key[V] {
   trait Aware
 }
 
+// Private constructor to prevent adding elements outside of updated
 case class TypesafeMap[+T] private (underlying: Map[Key[_], Any]) {
   // Returns the value associated with this key. Will only compile
   // if the value exists.
@@ -206,7 +207,7 @@ case class TypesafeMap[+T] private (underlying: Map[Key[_], Any]) {
   }
 }
 
-object TypeSafeMap {
+object TypesafeMap {
   def apply(): TypesafeMap[Any] = TypesafeMap[Any](Map())
 }
 ```
