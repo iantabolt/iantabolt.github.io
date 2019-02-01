@@ -3,14 +3,15 @@ title:  "Phantom Type Safe Map"
 date:   2019-01-22 14:39:47
 categories: [scala]
 tags: [scala, java, data structures, phantom types]
+twitter_img: phantom-type.png
 ---
-
-![A Phantom Map?](/images/phantom-map.png)
 
 In this post I'll take a look at the type-safe map pattern, and how it is
 used in real world open source libraries. Then I'll dive into how we can 
 add phantom types to actually track at compile time which values are present
 in the map.
+
+![A Phantom Map?](/images/phantom-map.png)
 
 ## The Type-Safe Map
 
