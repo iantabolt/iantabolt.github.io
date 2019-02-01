@@ -5,6 +5,8 @@ categories: [scala]
 tags: [scala, java, data structures, phantom types]
 ---
 
+![A Phantom Map?](/images/phantom-map.png)
+
 In this post I'll take a look at the type-safe map pattern, and how it is
 used in real world open source libraries. Then I'll dive into how we can 
 add phantom types to actually track at compile time which values are present
@@ -223,6 +225,7 @@ without worrying about runtime `None`s or errors from missing annotations.
 Here is where phantom types come in!
 
 ## Phantom Types to the Rescue
+
 A phantom type is a type parameter that doesn't correspond to any concrete
 value. 
 
