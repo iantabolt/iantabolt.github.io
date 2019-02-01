@@ -296,3 +296,4 @@ You can see the working code and tests for this post [on GitHub here] [GitHub Re
   [TypesafeMap]: https://github.com/stanfordnlp/CoreNLP/blob/master/src/edu/stanford/nlp/util/TypesafeMap.java
   [CoreAnnotations]: https://github.com/stanfordnlp/CoreNLP/blob/master/src/edu/stanford/nlp/ling/CoreAnnotations.java
   [GitHub Repo]: https://github.com/iantabolt/phantom-type-safe-map
+  [StackParams]: https://twitter.github.io/finagle/docs/com/twitter/finagle/Stack$$Params
