@@ -5,8 +5,10 @@ categories: [scala]
 tags: [scala, java, data structures, phantom types]
 ---
 
-In this post I'll dive into how we can use phantom types to build a type-safe 
-map that can hold arbitrary data while still providing compile-time safety.
+In this post I'll take a look at the type-safe map pattern, and how it is
+used in real world open source libraries. Then I'll dive into how we can 
+add phantom types to actually track at compile time which values are present
+in the map.
 
 ## The Type-Safe Map
 
@@ -50,9 +52,9 @@ case class TypesafeMap(underlying: Map[Key[_], Any] = Map()) {
 
 ## But Why?
 
-A type-safe `Map` can be used as a sort of anonymous class where we can collect any set of attributes.
+A type-safe `Map` can be used as a sort of anonymous class where we can collect any set of sparse attributes.
 
-For example,
+For example, this snippet
 
 ```scala
 case class Person(
@@ -68,7 +70,9 @@ val person = Person(
   address = Some("123 Main St")
 )
 ```
+
 can be expressed as
+
 ```scala
 case object Name extends Key[String]
 case object Age extends Key[Int]
@@ -84,39 +88,102 @@ val person = TypesafeMap()
 Unlike a case class, this gives more flexibility to add arbitrarily more "fields" later on 
 by extending `Key`.
 
-In the `Person` example this seems pretty useless, but suppose we wanted
-to have a library for NLP text annotations. We might want to annotate documents, sentences, 
-tokens, etc, and we might want new modules and annotations to be added without 
-modifying the core library.
+In the `Person` example this seems pretty useless, but if the class had dozens or hundreds
+of possible fields, where most of them are `None`, you could imagine that this could be
+quite useful.
 
-Some keys might look like
-```scala
-case object Text extends Key[String]
-case object Sentences extends Key[List[TypesafeMap]]
-case object Tokens extends Key[List[TypesafeMap]]
-case object Lemma extends Key[String]
-case object PartOfSpeech extends Key[String]
-case object NamedEntityTag extends Key[String]
-case object NamedEntityTagProbs extends Key[Map[String, Double]]
-case object CoarseNamedEntityTag extends Key[String]
-case object FineGrainedNamedEntityTag extends Key[String]
-case object StackedNamedEntityTag extends Key[String]
-case object TrueCase extends Key[String]
-case object TrueCaseText extends Key[String]
-case object GenericTokens extends Key[List[TypesafeMap]]
-case object Quotations extends Key[List[TypesafeMap]]
-case object UnclosedQuotations extends Key[List[TypesafeMap]]
-// ... hundreds more ...
-```
+A practical example of this might be a library for NLP text annotations. 
+The annotations could apply to documents, sentences, tokens, etc, and
+new modules and annotations could be added without modifying the core library.
 
 In fact, Stanford's CoreNLP library uses [a `TypesafeMap` class] [TypesafeMap] for
 exactly this, and defines [hundreds of `CoreAnnotation`s] [CoreAnnotations] which 
-are really just keys.
+are really just keys. 
+
+Grepping for `implements CoreAnnotation`, we can get a sense of how this is used:
+
+```java
+src/edu/stanford/nlp/ling/SegmenterCoreAnnotations.java
+10:  public static class CharactersAnnotation implements CoreAnnotation<List<CoreLabel>> {
+17:  public static class XMLCharAnnotation implements CoreAnnotation<String> {
+
+src/edu/stanford/nlp/ling/CoreAnnotations.java
+47:  public static class TextAnnotation implements CoreAnnotation<String> {
+60:  public static class LemmaAnnotation implements CoreAnnotation<String> {
+72:  public static class PartOfSpeechAnnotation implements CoreAnnotation<String> {
+85:  public static class NamedEntityTagAnnotation implements CoreAnnotation<String> {
+95:  public static class NamedEntityTagProbsAnnotation implements CoreAnnotation<Map<String,Double>> {
+105:  public static class CoarseNamedEntityTagAnnotation implements CoreAnnotation<String> {
+115:  public static class FineGrainedNamedEntityTagAnnotation implements CoreAnnotation<String> {
+// ...
+
+src/edu/stanford/nlp/sentiment/SentimentCoreAnnotations.java
+22:  public static class SentimentAnnotatedTree implements CoreAnnotation<Tree> {
+34:  public static class SentimentClass implements CoreAnnotation<String> {
+
+src/edu/stanford/nlp/ie/machinereading/structure/MachineReadingAnnotations.java
+23:  public static class EntityMentionsAnnotation implements CoreAnnotation<List<EntityMention>> {
+34:  public static class RelationMentionsAnnotation implements CoreAnnotation<List<RelationMention>> {
+47:  public static class AllRelationMentionsAnnotation implements CoreAnnotation<List<RelationMention>> {
+58:  public static class EventMentionsAnnotation implements CoreAnnotation<List<EventMention>> {
+77:  public static class DocumentDirectoryAnnotation implements CoreAnnotation<String> {
+
+// ... Many many more ...
+```
+
+In total, they define over 300 `CoreAnnotation`s in thirty different files. This would be pretty
+hard to accomplish with standarad data classes. 
+
+Another real world example that we happen to use at Foursquare can be found
+in Twitter's Finagle library. Finagle uses [a type-safe map called `Stack.Params`] [StackParams]
+to configure http clients and servers. In this case, they represent `Param` as a type class
+instance that acts as a key and also provides a default value.
+
+Again, grepping for `extends Stack.Param` gives a similar pattern with dozens of fields
+across a number of files:
+
+```scala
+finagle-thrift/src/main/scala/com/twitter/finagle/Thrift.scala
+98:    implicit object ClientId extends Stack.Param[ClientId] {
+103:    implicit object ProtocolFactory extends Stack.Param[ProtocolFactory] {
+115:    implicit object Framed extends Stack.Param[Framed] {
+125:    implicit object AttemptTTwitterUpgrade extends Stack.Param[AttemptTTwitterUpgrade] {
+311:      implicit object MaxReusableBufferSize extends Stack.Param[MaxReusableBufferSize] {
+
+finagle-http/src/main/scala/com/twitter/finagle/Http.scala
+68:    implicit object HttpImpl extends Stack.Param[HttpImpl] {
+83:    implicit object MaxChunkSize extends Stack.Param[MaxChunkSize] {
+91:    implicit object MaxHeaderSize extends Stack.Param[MaxHeaderSize] {
+99:    implicit object MaxInitialLineSize extends Stack.Param[MaxInitialLineSize] {
+107:    implicit object MaxRequestSize extends Stack.Param[MaxRequestSize] {
+115:    implicit object MaxResponseSize extends Stack.Param[MaxResponseSize] {
+120:    implicit object Streaming extends Stack.Param[Streaming] {
+125:    implicit object Decompression extends Stack.Param[Decompression] {
+130:    implicit object CompressionLevel extends Stack.Param[CompressionLevel] {
+
+finagle-core/src/main/scala/com/twitter/finagle/loadbalancer/LoadBalancerFactory.scala
+29:  implicit object EnableProbation extends Stack.Param[EnableProbation] {
+
+finagle-core/src/main/scala/com/twitter/finagle/service/Retries.scala
+64:  object Budget extends Stack.Param[Budget] {
+
+finagle-mysql/src/main/scala/com/twitter/finagle/mysql/Handshake.scala
+38:  implicit object Credentials extends Stack.Param[Credentials] {
+47:  implicit object Database extends Stack.Param[Database] {
+56:  implicit object Charset extends Stack.Param[Charset] {
+
+finagle-netty4/src/main/scala/com/twitter/finagle/netty4/package.scala
+68:    private[netty4] implicit object Allocator extends Stack.Param[Allocator] {
+85:    implicit object WorkerPool extends Stack.Param[WorkerPool] {
+
+finagle-mux/src/main/scala/com/twitter/finagle/mux/lease/exp/Lessor.scala
+61:  implicit object Param extends Stack.Param[Param] {
+ ```
 
 ## Making it Safer
 
-The problem here is that we have no way of knowing at compile time which 
-values are present in the `Map`.
+While these maps are "type safe" in that the key can guarantee the type of the value,
+there is no way to tell at compile time which values are actually present in the `Map`.
 
 So in our text annotation example, suppose we want to compose a pipeline of `Annotator`s,
 or functions that add new values to our map, but depend on existing values.
