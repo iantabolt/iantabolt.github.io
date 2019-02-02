@@ -1,6 +1,6 @@
 ---
-title:  "Phantom Type Safe Map"
-date:   2019-01-22 14:39:47
+title: "Phantom Type Safe Map"
+date: 2019-02-01 14:39:47
 categories: [scala]
 tags: [scala, java, data structures, phantom types]
 twitter_img: phantom-type.png
@@ -189,34 +189,53 @@ While these maps are "type safe" in that the key can guarantee the type of the v
 there is no way to tell at compile time which values are actually present in the `Map`.
 
 So in our text annotation example, suppose we want to compose a pipeline of `Annotator`s,
-or functions that add new values to our map, but depend on existing values.
+or functions that add new values to our map, but depend on existing values. For illustration,
+let's assume we have three keys `Text: Key[String]`, `Tokens: Key[List[String]]`, and 
+`PosTags: Key[List[String]]` that need to be added in that order. 
 
-This will probably manifest itself as an `assert` or an `Option`/`Either` return type:
+This will probably manifest itself as an `assert` or an `Option`/`Either` return type, or
+worse, the method will quietly swallow the problem of missing data:
 
 ```scala
-def tokenize(text: TypesafeMap): TyepsafeMap = {
-  text.updated(Tokens, text.split(" ").toList)
+// Bad! Signatures aren't descriptive
+
+def tokenize(m: TypesafeMap): TyepsafeMap = {
+  m.get(Text) match {
+    case Some(text) => m.updated(Tokens, text.split(" ")) // We have text, add tokens
+    case None => m // Can't do anything
+  }
 }
-def posTag(text: TypesafeMap): TypesafeMap = {
-  text.get(Tokens).map(tokens => {
-    text.updated(PosTag, doPosTagging(tokens)
-  }).getOrElse(text)
+
+def posTag(m: TypesafeMap): TypesafeMap = {
+  m.get(Tokens) match {
+    case Some(tokens) => m.updated(PosTags, doTagging(tokens)) // We have tokens, do tagging
+    case None => m // Can't do anything
+  }
 }
 
 val text = TypesafeMap().updated(Text, "foo bar")
+
 // This compiles but doesn't do anything,
 // because Tokens are needed before posTag is called
 val tagged = posTag(text)
 ```
 
-But really we want something like
+But really we want our method signature to give more information. The parameter type
+should describe the data required, and the return type should describe what is added:
 
 ```scala
-def tokenize[T <: TypesafeMap](text: T): T with HasTokens = {
-  text.updated(Tokens, text.split(" ").toList)
+// Hypothetical! Some kind of mix-in traits could tell us what data we have
+// Not really possible
+
+// Requires Text, adds Tokens
+def withTokens(m: TypesafeMap with HasText): TypesafeMap with HasTokens = {
+  // m(Text) is safe because our type requires that text is present
+  m.updated(Tokens, m(Text).split(" "))
 }
-def posTag[T <: TypesafeMap with HasTokens](text: T): T with HasPosTag = {
-  text.updated(PosTag, doPosTagging(text[Tokens]))
+
+// Requires Tokens, adds PosTags
+def withPosTags(m: TypesafeMap with HasTokens): TypesafeMap with HasPosTags = {
+  m.updated(PosTags, doTagging(m(Tokens)))
 }
 ```
 
@@ -232,38 +251,39 @@ value.
 
 In our case we can add a phantom type parameter to `TypesafeMap` that
 will keep track of what values are in our map so far. It will let us achieve
-the following syntax:
+the following actual syntax:
 
 ```scala
-case object Tokens extends Key[List[String]] 
-case object PosTag extends Key[List[String]] 
-case object Text extends Key[String]
-
+// Requires Text, adds Tokens
 def tokenize[T <: Text.Aware](
-  text: TypesafeMap[T]
+  m: TypesafeMap[T]
 ): TypesafeMap[T with Tokens.Aware] = {
-  text.updated(Tokens, text(Text).split("""\s*\b\s*""").toList)
+  m.updated(Tokens, m(Text).split("""\s*\b\s*""").toList)
 }
 
+// Requires Tokens, adds PosTags
 def posTag[T <: Tokens.Aware](
-  text: TypesafeMap[T]
-): TypesafeMap[T with PosTag.Aware] = {
-  text.updated(PosTag, doPosTag(text(Tokens)))
+  m: TypesafeMap[T]
+): TypesafeMap[T with PosTags.Aware] = {
+  m.updated(PosTag, doTagging(m(Tokens)))
 }
 
-val text = TypesafeMap().updated(Text, "Hello, world!")
-posTag(text) // Does not compile
-posTag(tokenize(text)) // Compiles!
+val m = TypesafeMap().updated(Text, "Hello, world!")
+posTag(m) // Does not compile, no Tokens present for tagging!
+posTag(tokenize(m)) // Compiles!
 ```
 
 where `TypesafeMap` and `Key` are now defined as
 
 ```scala
 abstract class Key[V] {
+  // Each Key has it's own Aware marker trait that can be
+  // added to the phantom type parameter as values are added. 
+  // Nothing concrete actually extends Aware.
   trait Aware
 }
 
-// Private constructor to prevent adding elements outside of updated
+// Private constructor to prevent adding elements outside of safe updated
 case class TypesafeMap[+T] private (underlying: Map[Key[_], Any]) {
   // Returns the value associated with this key. Will only compile
   // if the value exists.
@@ -293,8 +313,13 @@ appends `with key.Aware` to the phantom type parameter.
 Then the `apply` method only compiles if there is an implicit `T <:< key.Aware`, which 
 asserts that there must be proof that `T` extends `key.Aware` (ie the value exists).
 
+In summary, our typesafe map gets us:
+ - Ability to store arbitrary sparse data
+ - Safe casting of values, with types provided by the keys
+ - Safe `apply` method, with no null or `Option` types, because
+   the code only compiles if the key is present.
+
 You can see the working code and tests for this post [on GitHub here] [GitHub Repo].
- 
 
 
   [TypesafeMap]: https://github.com/stanfordnlp/CoreNLP/blob/master/src/edu/stanford/nlp/util/TypesafeMap.java
