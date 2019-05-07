@@ -35,4 +35,7 @@ $(document).ready(function () {
     $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn')
   })
 
+  new Tooltip($("#email-link"), {
+    title: "{{ site.author.email }}"
+  });
 })
