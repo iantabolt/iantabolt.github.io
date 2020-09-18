@@ -809,3 +809,13 @@ input[type="tel"] {
 	.btn, .navigation__item a {
 		display: block;
 		margin-bottom: .4em; } }
+
+@media print {
+	.btn-mobile-menu {
+		display: none; }
+
+	h1, h2, h3, h4 {
+		font-size: 1.0em; }
+
+	p {
+		font-size: 0.85em; } }
