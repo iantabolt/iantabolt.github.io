@@ -1,15 +1,18 @@
 # Site settings
 title: 'Ian Tabolt'
 description: >
-  <p>
-  I'm Ian, a software engieer at Foursquare where I work on
-  developer systems - ie software tools to make other developers'
-  lives easier.
-  </p>
-  <p>
-  I am a Scala enthusiast, cyclist, Yankees & Ravens fan, husband, 
-  and 2x doggie dad.
-  </p>
+  Hello! I'm a software engieer at Foursquare where I work on our
+  developer platform team, which builds <a href="https://developer.foursquare.com/">
+  our APIs<a/> that make external developers' lives easier 
+  by providing Foursquare's own location technology for use in their apps.
+  <br/><br/>
+  Previously I was on the developer systems team, where I worked to make
+  our own developers' lives easier with awesome Scala tooling and build
+  workflow.
+  <br/><br/>
+  Aside from being a professional Scala enthusiast, I am also a
+  stubborn bike commutor, an okay marathon runner, Yankees & Ravens fan,
+  and husband / 2x doggie dad / 1x baby dad.
 url: 'iantabolt.com'
 baseurl: ''
 disqus_shortname: 'tabo'

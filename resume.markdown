@@ -10,9 +10,22 @@ layout: page
 #### <i class="fab fa-foursquare fa-lg"></i> &nbsp;<a style="color:black" href="https://foursquare.com">Foursquare</a>
 Apr 2017 - Present | New York, NY
 
-Working on core infrastructure of Foursquare, including build tools (Pants), core Scala libraries like Spindle and Rogue, and codebase automation/deployment components. Focused on improving the Scala ecosystem in our massive "monorepo" code base, comprised of millions of lines of Scala over thousands of packages.
+Recently began work on the next generation <a href="https://developer.foursquare.com/">developer API</a>. Previously on our infra team focusing on Scala tooling and infrastructure of Foursquare, including our build workflow (Pants), and core Scala libraries like <a href="https://github.com/foursquare/fsqio">Spindle and Rogue</a>. I worked to improve the Scala ecosystem in our codebase, which is a monorepo comprised of millions of lines of Scala over thousands of packages.
 
-Previously contributed to a "big data" ML pipeline built on Hadoop, Scalding, and Spark. The pipeline ingested records from first and third party sources, performed distributed clustering/conflation, and output a canonical view of the world's places.
+Previously worked on our venue pipeline built on Hadoop, Scalding, and Spark. The pipeline ingested place records from first and third party sources, performed distributed clustering/conflation, and output a canonical view of the world's places.
+
+Some recent projects:
+ - Upgraded our codebase to Scala 2.12, after dozens of other third party
+   library upgrades to ensure compatibility.
+ - Migrated our Rogue library to use reactive streams instead of callback 
+   hell for asynchronous MongoDB access.
+ - Migrated our MongoDB clusters to a cloud-hosted solution, while avoiding
+   data loss or downtime on the application side.
+ - Integrated a Scala formatter into our codebase.
+ - Refactored our Spindle Thrift codegen to significantly cut down on generated
+   code.
+ - Developed an onboarding project to guide new developers through monorepo
+   setup and usage.
 
 ---
 
@@ -29,8 +42,7 @@ Previously contributed to a "big data" ML pipeline built on Hadoop, Scalding, an
 #### <i class="fas fa-baseball-ball fa-lg"></i> &nbsp;<a style="color:black" href="https://www.mlb.com/careers/">MLB Advanced Media</a>
 <sub>Jul 2016 - Apr 2017 | New York, NY</sub>
 
-Java/Scala software engineer working on back end system for a RESTful sports data API, promptly serving every stat you'd ever want to know about MLB, NHL, MLS, and more. Built a responsive job scheduling framework on Akka Streams, Actors, and HTTP (formerly Spray).
-
+I worked on the sports data API (Java 8/Spring/Couchbase), which was a originally developed for MLB, but our team adapted it to NHL, MLS, and other sports. This system served all of the stats and data that powered the streaming services, websites, and apps used by these leagues. Built a responsive job scheduling framework with Scala and Akka (Streams/Actors/HTTP).
 
 #### <i class="fas fa-dumbbell fa-lg"></i> &nbsp;<a style="color:black" href="https://www.rowgatta.com/">Rowgatta (contractor)</a>
 <sub>Nov 2017 - Jun 2018 | Brooklyn, NY</sub>
@@ -46,5 +58,5 @@ Scala software engineer working on high performance ad-serving platform, handlin
 #### <i class="fas fa-edit fa-lg"></i> &nbsp;<a style="color:black" href="https://wordai.com/">WordAi</a> / <a style="color:black" href="https://www.articleforge.com">Article Forge</a>
 <sub>June 2013 - May 2015 | Baltimore, MD</sub>
 
-Back-end Scala/Java/PHP software engineer at start up company leveraging natural language processing to gain an edge in the competitive market of SEO tools. Built greenfield core for SaaS web applications including WordAi and ArticleForge that sought to replace monotonous content writing with artificial intelligence.
+Back-end Scala/Java/PHP software engineer at Cortx, a small company (~2 people at the time) creating NLP-powered tools used by SEOers for content creation needs as an alternative to freelance writers. While at Cortx, I built ArticleForge from scratch - an NLP pipeline that given one or more keywords, gathers relevant content and restructures it "in its own words" as a fresh article.
 
