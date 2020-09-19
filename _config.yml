@@ -1,15 +1,15 @@
 # Site settings
 title: 'Ian Tabolt'
-description: >
+description:
   Hello! I'm a software engieer at Foursquare where I work on our
-  developer platform team, which builds <a href="https://developer.foursquare.com/">
-  our APIs<a/> that make external developers' lives easier 
+  developer platform team, which builds our APIs
+  that make external developers&apos; lives easier
   by providing Foursquare's own location technology for use in their apps.
-  <br/><br/>
+  <br/>
   Previously I was on the developer systems team, where I worked to make
-  our own developers' lives easier with awesome Scala tooling and build
-  workflow.
-  <br/><br/>
+  our own developers&apos; lives easier with awesome Scala tooling and build
+  workflows.
+  <br/>
   Aside from being a professional Scala enthusiast, I am also a
   stubborn bike commutor, an okay marathon runner, Yankees & Ravens fan,
   and husband / 2x doggie dad / 1x baby dad.
