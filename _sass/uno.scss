@@ -814,8 +814,26 @@ input[type="tel"] {
 	.btn-mobile-menu {
 		display: none; }
 
-	h1, h2, h3, h4 {
-		font-size: 1.0em; }
+	h1 {
+            font-size: 1.8em;
+            color: #666;
+            text-shadow: none; }
+        h2 {
+            font-size: 1.4em; }
+        h3 {
+            font-size: 1.2em; }
+        h4 {
+	    font-size: 1.0em; }
 
-	p {
-		font-size: 0.85em; } }
+	p, li {
+		font-size: 0.83em; } 
+
+        a {
+            color: #666; }
+
+        .panel-cover--overlay {
+		display: none; }
+
+        .panel-cover.panel-cover--collapsed {
+		height: 20%; } }
+
