@@ -1,18 +1,13 @@
 # Site settings
 title: 'Ian Tabolt'
 description:
-  Hello! I'm a software engieer at Foursquare where I work on our
-  developer platform team, which builds our APIs
-  that make external developers&apos; lives easier
-  by providing Foursquare's own location technology for use in their apps.
+  Hello! I&apos;m a software engieer at Metropolis where I work on our
+  consumer backend team - I build the APIs that our mobile web app uses, and any APIs needed by
+  external apps to integrate with Metropolis. (Metropolis is building a platform to power
+  the future uses of parking real estate and we're hiring!)
   <br/>
-  Previously I was on the developer systems team, where I worked to make
-  our own developers&apos; lives easier with awesome Scala tooling and build
-  workflows.
-  <br/>
-  Aside from being a professional Scala enthusiast, I am also a
-  stubborn bike commutor, an okay marathon runner, Yankees & Ravens fan,
-  and husband / 2x doggie dad / 1x baby dad.
+  I am also a stubborn bike commutor, an okay marathon runner, Yankees & Ravens fan,
+  and husband / 2x doggie dad / 1x toddler dad.
 url: 'iantabolt.com'
 baseurl: ''
 disqus_shortname: 'tabo'
