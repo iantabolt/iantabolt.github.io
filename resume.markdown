@@ -5,24 +5,12 @@ tags: [meta]
 layout: page
 ---
 
-### Current
+### Work
 
 #### <i class="fas fa-city fa-lg"></i> &nbsp;<a style="color:black" href="https://metropolis.io">Metropolis</a>
 Jul 2021 - Present | New York, NY
 
 Building the backend of Metropolis, a mobile/camera based parking platform, with Scala (Play/Cats/Slick) and MySQL. Specifically my focus is on the consumer portion of the backend and our external API for integrations with Metropolis, like Uber Park.
-
----
-
-### Education
-
-#### <i class="fas fa-graduation-cap fa-lg"></i> &nbsp;<a style="color:black" href="https://www.udel.edu/">University of Delaware</a>
-<sub>Aug 2009 - May 2013 | Newark, DE</sub>
-<br>BS, Computer Science
-<br>Concentration: Artificial Intelligence
-
----
-### Past
 
 #### <i class="fab fa-foursquare fa-lg"></i> &nbsp;<a style="color:black" href="https://foursquare.com">Foursquare</a>
 Apr 2017 - Jul 2021 | New York, NY
@@ -49,11 +37,6 @@ Some recent projects:
 
 I worked on the sports data API (Java 8/Spring/Couchbase), which was a originally developed for MLB, but our team adapted it to NHL, MLS, and other sports. This system served all of the stats and data that powered the streaming services, websites, and apps used by these leagues. Built a responsive job scheduling framework with Scala and Akka (Streams/Actors/HTTP).
 
-#### <i class="fas fa-dumbbell fa-lg"></i> &nbsp;<a style="color:black" href="https://www.rowgatta.com/">Rowgatta (contractor)</a>
-<sub>Nov 2017 - Jun 2018 | Brooklyn, NY</sub>
-
-Built out scalable server-side microservices using Lightbend Lagom (Scala, Akka, Play Framework, Cassandra, Kafka). Worked with founders, designers, and app developers to deliver backend API requirements for a distributed remote workout class system.
-
 #### <i class="fas fa-ad fa-lg"></i> &nbsp;<a style="color:black" href="https://www.ad.com/">Aol / ad.com</a>
 <sub>May 2015 - July 2016 | Baltimore, MD</sub>
 
@@ -65,3 +48,20 @@ Scala software engineer working on high performance ad-serving platform, handlin
 
 Back-end Scala/Java/PHP software engineer at Cortx, a small company (~2 people at the time) creating NLP-powered tools used by SEOers for content creation needs as an alternative to freelance writers. While at Cortx, I built ArticleForge from scratch - an NLP pipeline that given one or more keywords, gathers relevant content and restructures it "in its own words" as a fresh article.
 
+---
+
+### Side Work
+
+#### <i class="fas fa-dumbbell fa-lg"></i> &nbsp;<a style="color:black" href="https://www.rowgatta.com/">Rowgatta (contractor)</a>
+<sub>Nov 2017 - Jun 2018 | Brooklyn, NY</sub>
+
+Built out scalable server-side microservices using Lightbend Lagom (Scala, Akka, Play Framework, Cassandra, Kafka). Worked with founders, designers, and app developers to deliver backend API requirements for a distributed remote workout class system.
+
+---
+
+### Education
+
+#### <i class="fas fa-graduation-cap fa-lg"></i> &nbsp;<a style="color:black" href="https://www.udel.edu/">University of Delaware</a>
+<sub>Aug 2009 - May 2013 | Newark, DE</sub>
+<br>BS, Computer Science
+<br>Concentration: Artificial Intelligence

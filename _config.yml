@@ -1,13 +1,6 @@
 # Site settings
 title: 'Ian Tabolt'
-description:
-  Hello! I&apos;m a software engieer at Metropolis where I work on our
-  consumer backend team - I build the APIs that our mobile web app uses, and any APIs needed by
-  external apps to integrate with Metropolis. (Metropolis is building a platform to power
-  the future uses of parking real estate and we're hiring!)
-  <br/>
-  I am also a stubborn bike commutor, an okay marathon runner, Yankees & Ravens fan,
-  and husband / 2x doggie dad / 1x toddler dad.
+description: ''
 url: 'iantabolt.com'
 baseurl: ''
 disqus_shortname: 'tabo'
