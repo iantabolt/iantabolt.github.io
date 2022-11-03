@@ -10,27 +10,16 @@ layout: page
 #### <i class="fas fa-city fa-lg"></i> &nbsp;<a style="color:black" href="https://metropolis.io">Metropolis</a>
 Jul 2021 - Present | New York, NY
 
-Building the backend of Metropolis, a mobile/camera based parking platform, with Scala (Play/Cats/Slick) and MySQL. Specifically my focus is on the consumer portion of the backend and our external API for integrations with Metropolis, like Uber Park.
+Building the consumer backend of Metropolis, a mobile/camera based parking platform, with Scala (Play/Cats/Slick) and MySQL. Our goal is to make the consumer experience as intuitive and seamless as possible to actually minimize time spent on the app.
 
 #### <i class="fab fa-foursquare fa-lg"></i> &nbsp;<a style="color:black" href="https://foursquare.com">Foursquare</a>
 Apr 2017 - Jul 2021 | New York, NY
 
-Recently began work on the next generation <a href="https://developer.foursquare.com/">developer API</a>. Previously on our infra team focusing on Scala tooling and infrastructure of Foursquare, including our build workflow (Pants), and core Scala libraries like <a href="https://github.com/foursquare/fsqio">Spindle and Rogue</a>. I worked to improve the Scala ecosystem in our codebase, which is a monorepo comprised of millions of lines of Scala over thousands of packages.
+Places API: I worked on Foursquare's next generation <a href="https://developer.foursquare.com/">developer API</a>. Our APIs let developers use the same location technology and place data that power Foursquare's own apps. The API provides all endpoints needed to power a location search, including place search, autocomplete, and place details.
 
-Previously worked on our venue pipeline built on Hadoop, Scalding, and Spark. The pipeline ingested place records from first and third party sources, performed distributed clustering/conflation, and output a canonical view of the world's places.
+Developer Systems: Worked to improve Foursquare's developer tooling, including our build workflow (Pants), and core Scala libraries like <a href="https://github.com/foursquare/fsqio">Spindle and Rogue</a>, and the overall Scala ecosystem in our codebase, which is a monorepo comprised of millions of lines of Scala over thousands of packages.
 
-Some recent projects:
- - Upgraded our codebase to Scala 2.12, after dozens of other third party
-   library upgrades to ensure compatibility.
- - Migrated our Rogue library to use reactive streams instead of callback 
-   hell for asynchronous MongoDB access.
- - Migrated our MongoDB clusters to a cloud-hosted solution, while avoiding
-   data loss or downtime on the application side.
- - Integrated a Scala formatter into our codebase.
- - Refactored our Spindle Thrift codegen to significantly cut down on generated
-   code.
- - Developed an onboarding project to guide new developers through monorepo
-   setup and usage.
+Place Data Pipeline: Previously worked on our venue pipeline built on Hadoop, Scalding, and Spark. The pipeline ingested place records from first and third party sources, performed distributed clustering/conflation, and output a canonical view of the world’s places. This place output powered all of our apps internally as well as our developer APIs mentioned above.
 
 #### <i class="fas fa-baseball-ball fa-lg"></i> &nbsp;<a style="color:black" href="https://www.mlb.com/careers/">MLB Advanced Media</a>
 <sub>Jul 2016 - Apr 2017 | New York, NY</sub>
